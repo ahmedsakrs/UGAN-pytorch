@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     dataset = MYDataSet(src_data_path=args.trainA_path, dst_data_path=args.trainB_path)
     datasetloader = DataLoader(
-        dataset, batch_size=batch_size, shuffle=False, num_workers=args.num_workers
+        dataset, batch_size=batch_size, shuffle=True, num_workers=args.num_workers
     )
 
     log_root = args.log_root
