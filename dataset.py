@@ -15,10 +15,11 @@ def get_transforms():
 
 
 class MYDataSet(Dataset):
-    def __init__(self,src_data_path,dst_data_path):
+    def __init__(self,src_data_path,dst_data_path, size=(768, 768)):
         self.train_A_imglist = self.get_imglist(src_data_path)
         self.train_B_imglist = self.get_imglist(dst_data_path)
         self.transform = get_transforms()
+        self.size = size
     
     def get_imglist(self,img_dir):
         img_name_list = sorted(os.listdir(img_dir))
@@ -35,6 +36,9 @@ class MYDataSet(Dataset):
 
         train_A_img = cv2.imread(train_A_img_path)
         train_B_img = cv2.imread(train_B_img_path)
+        
+        train_A_img = cv2.resize(train_A_img, self.size)
+        train_B_img = cv2.resize(train_B_img, self.size)
 
         train_A_tensor = self.transform(train_A_img)
         train_B_tensor = self.transform(train_B_img)
