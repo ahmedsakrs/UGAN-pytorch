@@ -23,10 +23,12 @@ if __name__ == "__main__":
         for img_name in os.listdir(img_folder):
             img_path = os.path.join(img_folder,img_name)
             img = cv2.imread(img_path)
+            height, width = img.shape[:2]
             img = cv2.resize(img,(512,512))
             img_tensor = img2tensor(img)
             output_tensor = netG.forward(img_tensor)
             output_img = tensor2img(output_tensor)
+            output_img = cv2.resize(output_img, (width, height))
             save_folder = args.output_folder
             if not os.path.exists(save_folder):
                 os.makedirs(save_folder)
