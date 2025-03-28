@@ -9,7 +9,8 @@ class ColorCorrector:
     def __init__(self, model_path):
         checkpoint = torch.load(model_path)
         with torch.no_grad():
-            self.model = GeneratorNet().cuda()
+            device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+            self.model = GeneratorNet().to(device)
             self.model.load_state_dict(checkpoint)
     
     def correct(self, frame: np.ndarray, size=(512, 512)) -> np.ndarray:

@@ -12,7 +12,8 @@ def tensor2img(one_tensor):# [b,c,h,w] [-1,1]
     img = np.transpose(img,(1,2,0))
     return img
 def img2tensor(np_img):# [h,w,c]
-    tensor = get_transforms()(np_img).cuda() # [c,h,w] [-1,1]
+    device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+    tensor = get_transforms()(np_img).to(device) # [c,h,w] [-1,1]
     tensor = tensor.unsqueeze(0) # [b,c,h,w] [-1,1]
     return tensor
 
