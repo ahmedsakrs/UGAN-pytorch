@@ -4,6 +4,7 @@ from time import time
 from net import GeneratorNet
 import argparse
 from utils import img2tensor, tensor2img
+from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--vid_path", type=str, required=True, help="input video path")
@@ -30,6 +31,7 @@ if __name__ == "__main__":
             print("Error: Could not open input video.")
             exit()
 
+        frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         fps = cap.get(cv2.CAP_PROP_FPS)
@@ -38,7 +40,7 @@ if __name__ == "__main__":
         out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
         start = time()
 
-        while True:
+        for _ in tqdm(range(frame_count), desc="Processing Video", unit="frame"):
             ret, frame = cap.read()
             if not ret:
                 break
