@@ -45,8 +45,7 @@ if __name__ == "__main__":
             if not ret:
                 break
 
-            # === Apply your operation ===
-            img = cv2.resize(img, (768, 768))
+            img = cv2.resize(frame, (768, 768))
             img_tensor = img2tensor(img)
             output_tensor = netG.forward(img_tensor)
             output_img = tensor2img(output_tensor)
