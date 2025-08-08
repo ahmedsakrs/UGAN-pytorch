@@ -1,9 +1,7 @@
 import torch
-import torch.nn as nn 
-import cv2,datetime,os
+import cv2, os
 from net import GeneratorNet
 import argparse
-import numpy as np
 from utils import img2tensor,tensor2img
 from tqdm import tqdm
 
